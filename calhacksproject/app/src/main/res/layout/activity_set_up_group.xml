@@ -10,40 +10,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.yashaektefaie.calhacksproject.set_up_group">
 
-    <!--<TableLayout-->
-        <!--android:id="@+id/tblTop10List"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_centerInParent="true"-->
-        <!--android:layout_marginTop="23dp"-->
-        <!--android:stretchColumns="*" >-->
-
-        <!--<TableRow-->
-            <!--android:id="@+id/tableRow1"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:weightSum="1" >-->
-
-            <!--<TextView-->
-                <!--android:id="@+id/tvTopName"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:paddingLeft="8dp"-->
-                <!--android:text="HELLO THERE"-->
-                <!--android:layout_column="0"-->
-                <!--/>-->
-
-            <!--<TextView-->
-                <!--android:id="@+id/tvTopNumber"-->
-                <!--android:paddingLeft="4dp"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="HELLO THERE "-->
-                <!--android:layout_column="1"-->
-                <!--/>-->
-        <!--</TableRow>-->
-    <!--</TableLayout>-->
-
     <Button
         android:text="PARTY!"
         android:onClick = "party"
@@ -74,5 +40,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
     </ListView>
+
 
 </RelativeLayout>

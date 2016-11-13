@@ -12,6 +12,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -23,11 +24,15 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import static android.view.View.GONE;
+
 public class set_up_group extends Activity {
     public String group_code;
     private double lat, lng;
-    private boolean is_safe;
+    private boolean is_safe = true;
     public String user_name;
+    public boolean calculations = false;
+    public int safety_radius = 10;
 
     protected LocationManager locationManager;
 
@@ -43,20 +48,47 @@ public class set_up_group extends Activity {
             // -- Upload latitute and longitute real time to database --//
 
             FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference myRef = database.getReference(group_code);
+            final DatabaseReference myRef = database.getReference(group_code);
 
             Log.i("Status","Received user info" + user_name);
 
             Log.i("INFO",""+user_name);
-            User user = new User();
+            final User user = new User();
 
             Log.i("Status", "Updating user long/lat");
             user.setName(user_name);
             user.setLatitude(lat);
             user.setLongitude(lng);
-            user.setIsSafe(true);
 
-            myRef.child(user.getName()).setValue(user);
+
+            //check to see if party was pressed, if so calculations should be true
+            if (calculations){
+                myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                        ArrayList<String> tableArray = new ArrayList<>();
+                        for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                            User user = postSnapshot.getValue(User.class);;
+                            tableArray.add(Double.toString(user.getLatitude()));
+                            tableArray.add(Double.toString(user.getLongitude()));
+                        }
+                        is_safe = run_calculations(tableArray);
+                        Log.i("IS_SAFE HAS BEEN SET TO",""+is_safe);
+
+                        Log.i("Calculation result",""+is_safe);
+
+                        user.setIsSafe(is_safe);
+                        myRef.child(user.getName()).setValue(user);
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError firebaseError) {
+                        System.out.println("The read failed: " + firebaseError.getMessage());
+                    }
+                });
+
+            }
+
+
 
         }
 
@@ -67,6 +99,52 @@ public class set_up_group extends Activity {
 
     ArrayAdapter<String> adapter;
 
+    public boolean run_calculations(ArrayList t){
+
+        Log.i("longitudes","" + t.get(0));
+        Log.i("longitudes","" + t.get(2));
+
+        Log.i("latitudes","" + t.get(1));
+        Log.i("latitudes","" + t.get(3));
+
+//        Location locationA = new Location("user1");
+//        locationA.setLatitude(Double.parseDouble(t.get(1).toString()));
+//        locationA.setLongitude(Double.parseDouble(t.get(0).toString()));
+//
+//        Location locationB = new Location("user2");
+//        locationB.setLatitude(Double.parseDouble(t.get(3).toString()));
+//        locationB.setLongitude(Double.parseDouble(t.get(2).toString()));
+
+        double x1 = Double.parseDouble(t.get(1).toString()) * 112645.08;
+        double y1 = Double.parseDouble(t.get(0).toString()) * 112645.08;
+
+        double x2 = Double.parseDouble(t.get(3).toString()) * 112645.08;
+        double y2 = Double.parseDouble(t.get(2).toString()) * 112645.08;
+
+//        double distance_proxy = Math.sqrt(Math.pow(Double.parseDouble(t.get(0).toString()) - Double.parseDouble(t.get(2).toString()),2) +
+//                        Math.pow(Double.parseDouble(t.get(1).toString()) - Double.parseDouble(t.get(3).toString()),2));
+//        double distance = distance_proxy * 112654.08;
+
+        double distance = Math.sqrt(Math.pow((x2-x1), 2) + Math.pow((y2-y1), 2));
+        Log.i("x1", " " +x1);
+        Log.i("x2", " " +x2);
+        Log.i("21", " " +y1);
+        Log.i("y2", " " +y2);
+
+
+
+//        Float distance = locationA.distanceTo(locationB);
+
+        Log.i("DISTANCE", "" + distance);
+
+        if (distance < safety_radius){
+            Log.i("Distance","DISTANCE IS LESS THAN SAFETY RADIUS");
+            return true;
+        }else{
+            Log.i("DISTANCE","Distance is more than safety radius");
+            return false;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -146,6 +224,14 @@ public class set_up_group extends Activity {
     public void party(View v){
 
         Log.i("Status","Initializing Party");
+
+        //Get Rid of Button
+        Button b = (Button) findViewById(R.id.party);
+        b.setVisibility(GONE);
+
+        //initiate calculations
+        calculations = true;
+
     }
 
 }
@@ -194,6 +280,3 @@ class User {
     }
 
 }
-
-
-
