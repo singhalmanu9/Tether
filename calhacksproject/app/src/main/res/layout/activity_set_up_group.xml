@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_set_up_group"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.yashaektefaie.calhacksproject.set_up_group">
+
+    <!--<TableLayout-->
+        <!--android:id="@+id/tblTop10List"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:layout_marginTop="23dp"-->
+        <!--android:stretchColumns="*" >-->
+
+        <!--<TableRow-->
+            <!--android:id="@+id/tableRow1"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:weightSum="1" >-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/tvTopName"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:paddingLeft="8dp"-->
+                <!--android:text="HELLO THERE"-->
+                <!--android:layout_column="0"-->
+                <!--/>-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/tvTopNumber"-->
+                <!--android:paddingLeft="4dp"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="HELLO THERE "-->
+                <!--android:layout_column="1"-->
+                <!--/>-->
+        <!--</TableRow>-->
+    <!--</TableLayout>-->
+
+    <Button
+        android:text="PARTY!"
+        android:onClick = "party"
+        android:id="@+id/party"
+        android:background="@android:color/holo_green_dark"
+        android:layout_width="400dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_height="150dp"
+        android:textSize="80sp" />
+
+
+    <TextView
+        android:text="Group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/group_name"
+        android:textSize="70sp"
+        android:textColor="@android:color/background_light"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <ListView
+        android:id="@+id/status_update"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/group_name"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+    </ListView>
+
+</RelativeLayout>
