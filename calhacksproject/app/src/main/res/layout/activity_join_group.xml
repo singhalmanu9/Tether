@@ -8,26 +8,34 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@mipmap/joingroupimage"
     tools:context="com.example.yashaektefaie.calhacksproject.join_group">
+
+    <Button
+        android:text="Go!"
+        android:background="@null"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="84dp"
+        android:textSize="80dp"
+        android:textColor="#003057"
+        android:gravity="center"
+        android:onClick = "check_group"
+        android:id="@+id/enter"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
         android:ems="10"
+        android:layout_marginTop="117dp"
+        android:hint = "Enter your group code:"
+        android:inputType = "textNoSuggestions"
+        android:textColor="#003057"
+        android:textSize="28dp"
+        android:gravity="center"
+        android:id="@+id/group_code"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="65dp"
-        android:hint = "Insert your group code"
-        android:id="@+id/group_code" />
-
-    <Button
-        android:text="Enter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="71dp"
-        android:onClick = "check_group"
-        android:id="@+id/enter" />
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

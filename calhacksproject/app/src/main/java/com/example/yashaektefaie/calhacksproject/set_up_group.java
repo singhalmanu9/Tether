@@ -107,33 +107,17 @@ public class set_up_group extends Activity {
         Log.i("latitudes","" + t.get(1));
         Log.i("latitudes","" + t.get(3));
 
-//        Location locationA = new Location("user1");
-//        locationA.setLatitude(Double.parseDouble(t.get(1).toString()));
-//        locationA.setLongitude(Double.parseDouble(t.get(0).toString()));
-//
-//        Location locationB = new Location("user2");
-//        locationB.setLatitude(Double.parseDouble(t.get(3).toString()));
-//        locationB.setLongitude(Double.parseDouble(t.get(2).toString()));
-
         double x1 = Double.parseDouble(t.get(1).toString()) * 112645.08;
         double y1 = Double.parseDouble(t.get(0).toString()) * 112645.08;
 
         double x2 = Double.parseDouble(t.get(3).toString()) * 112645.08;
         double y2 = Double.parseDouble(t.get(2).toString()) * 112645.08;
 
-//        double distance_proxy = Math.sqrt(Math.pow(Double.parseDouble(t.get(0).toString()) - Double.parseDouble(t.get(2).toString()),2) +
-//                        Math.pow(Double.parseDouble(t.get(1).toString()) - Double.parseDouble(t.get(3).toString()),2));
-//        double distance = distance_proxy * 112654.08;
-
         double distance = Math.sqrt(Math.pow((x2-x1), 2) + Math.pow((y2-y1), 2));
         Log.i("x1", " " +x1);
         Log.i("x2", " " +x2);
         Log.i("21", " " +y1);
         Log.i("y2", " " +y2);
-
-
-
-//        Float distance = locationA.distanceTo(locationB);
 
         Log.i("DISTANCE", "" + distance);
 
@@ -195,9 +179,15 @@ public class set_up_group extends Activity {
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                     User user = postSnapshot.getValue(User.class);
                     tableArray.add(user.getName());
-                    tableArray.add(Boolean.toString(user.getIsSafe()));
-                    tableArray.add(Double.toString(user.getLatitude()));
-                    tableArray.add(Double.toString(user.getLongitude()));
+                    boolean temporary = user.getIsSafe();
+                    if (temporary) {
+                        tableArray.add("\t\t\t\tStatus: Safe");
+                    } else {
+                        tableArray.add("\t\t\t\tStatus: Not Safe");
+                        tableArray.add(Boolean.toString(user.getIsSafe()));
+                        tableArray.add(Double.toString(user.getLatitude()));
+                        tableArray.add(Double.toString(user.getLongitude()));
+                    }
                 }
                 Log.i("TABLE ARRAY", ""+tableArray);
                 set_up_listview(tableArray);
